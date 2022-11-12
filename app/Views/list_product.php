@@ -20,10 +20,10 @@
                 <h2>Lista Produtos</h2>
             </div>
             <div class="col-lg-5">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url();?>/customer');">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url(); ?>/customer');">
                     Lista de Clientes
                 </button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url();?>/order');">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url(); ?>/order');">
                     Pedidos de Compra
                 </button>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -45,13 +45,13 @@
                 <?php
                 foreach ($products_detail as $row) {
                 ?>
-                    <tr id="<?php echo $row['id']; ?>">
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo $row['title']; ?></td>
-                        <td><?php echo $row['price']; ?></td>
+                    <tr id="<?php echo esc($row['id']); ?>">
+                        <td><?php echo esc($row['id']); ?></td>
+                        <td><?php echo esc($row['title']); ?></td>
+                        <td><?php echo esc($row['price']); ?></td>
                         <td>
-                            <a data-id="<?php echo $row['id']; ?>" class="btn btn-primary btnEdit">Editar</a>
-                            <a data-id="<?php echo $row['id']; ?>" class="btn btn-danger btnDelete">Deletar</a>
+                            <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-primary btnEdit">Editar</a>
+                            <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-danger btnDelete">Deletar</a>
                         </td>
                     </tr>
                 <?php
@@ -199,8 +199,8 @@
                 })
             });
         });
-        
-        function redirect(url){
+
+        function redirect(url) {
             window.location.href = url;
             return false;
         }

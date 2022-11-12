@@ -28,7 +28,8 @@ class Product extends Controller
             'title' => $this->request->getVar('txtProductTitle'),
             'price'  => $this->request->getVar('txtProductPrice'),
             ];
-        $save = $model->insert_data($data);
+        $save = $model->insert($data);
+        
         if($save != false)
         {
             $data = $model->where('id', $save)->first();

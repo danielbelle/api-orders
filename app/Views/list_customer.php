@@ -20,10 +20,10 @@
                 <h2>Lista Clientes</h2>
             </div>
             <div class="col-lg-5">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url();?>/product');">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url(); ?>/product');">
                     Lista de Produtos
                 </button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url();?>/order');">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url(); ?>/order');">
                     Pedidos de Compra
                 </button>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -200,8 +200,8 @@
                 })
             });
         });
-        
-        function redirect(url){
+
+        function redirect(url) {
             window.location.href = url;
             return false;
         }

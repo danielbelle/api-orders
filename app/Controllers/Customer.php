@@ -28,7 +28,7 @@ class Customer extends Controller
             'name'  => $this->request->getVar('txtCustomerName'),
             'document'  => $this->request->getVar('txtCustomerDocument'),
         ];
-        $save = $model->insert_data($data);
+        $save = $model->insert($data);
         if($save != false)
         {
             $data = $model->where('id', $save)->first();
