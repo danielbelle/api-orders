@@ -58,7 +58,6 @@
                             } else {
                                 echo 'Em Aberto';
                             }
-
                             ?></td>
                         <td>
                             <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-primary btnEdit">Editar</a>
@@ -81,16 +80,41 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="txtOrderCustomerId">Nome do Cliente:</label>
-                                <input type="text" class="form-control" id="txtOrderCustomerId" placeholder="Adicione nome do Cliente" name="txtOrderCustomerId">
+                                <select class="form-select" id="txtOrderCustomerId" name="txtOrderCustomerId">
+                                    <option selected></option>
+                                    <?php
+                                    $row_verif = array();
+                                    foreach ($orders_detail as $row) :
+                                        if (!in_array($row['customer_id'], $row_verif)) {
+                                            array_push($row_verif, $row['customer_id']);
+                                    ?>
+                                            <option id='<?php echo esc($row['id']); ?>'><?php echo esc($row['customer_id']); ?></option>
+                                    <?php
+                                        }
+                                    endforeach; ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="txtOrderProductId">Produto Adquirido:</label>
-                                <input type="text" class="form-control" id="txtOrderProductId" placeholder="Nome do Produto" name="txtOrderProductId">
+                                <select class="form-select" id="txtOrderProductId" name="txtOrderProductId">
+                                    <option selected></option>
+                                    <?php
+                                    $row_verif = array();
+                                    foreach ($orders_detail as $row) :
+                                        if (!in_array($row['product_id'], $row_verif)) {
+                                            array_push($row_verif, $row['product_id']);
+                                    ?>
+                                            <option id='<?php echo esc($row['id']); ?>'><?php echo esc($row['product_id']); ?></option>
+                                    <?php
+
+                                        }
+                                    endforeach; ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="txtOrderStatus">Status do Pedido</label>
                                 <select class="form-select" id="txtOrderStatus" name="txtOrderStatus">
-                                    <option selected>Escolha o status</option>
+                                    <option selected></option>
                                     <option value=1>Em Aberto</option>
                                     <option value=2>Pago</option>
                                     <option value=3>Cancelado</option>
@@ -126,7 +150,7 @@
                             </div>
                             <label for="txtOrderStatus">Status do Pedido:</label>
                             <select class="form-select" id="txtOrderStatus" name="txtOrderStatus">
-                                <option selected>Escolha o status</option>
+                                <option selected></option>
                                 <option value=1>Em Aberto</option>
                                 <option value=2>Pago</option>
                                 <option value=3>Cancelado</option>

@@ -17,10 +17,10 @@ class Order extends Controller
         $product_model = new ProductModel();
 
         $data['orders_detail'] = $order_model->orderBy('id', 'DESC')->findAll();
-        $data2 = array();
+        $data_direcionador_db = array();
         foreach ($data['orders_detail'] as $key => $datas) {
 
-            $data2['orders_detail'][$key] =
+            $data_direcionador_db['orders_detail'][$key] =
                 [
                     'id' => $datas['id'],
                     'customer_id' => implode($customer_model->select('name')->where('id', $datas['customer_id'])->first()),
@@ -28,7 +28,7 @@ class Order extends Controller
                     'status' => $datas['status']
                 ];
         }
-        return view('list_order', $data2);
+        return view('list_order', $data_direcionador_db);
     }
 
 
@@ -37,19 +37,29 @@ class Order extends Controller
         helper(['form', 'url']);
 
         $order_model = new OrderModel();
+        $customer_model = new CustomerModel();
+        $product_model = new ProductModel();
 
         $data = [
             'customer_id' => $this->request->getVar('txtOrderCustomerId'),
             'product_id'  => $this->request->getVar('txtOrderProductId'),
             'status'  => $this->request->getVar('txtOrderStatus'),
         ];
-        $save = $order_model->insert($data);
+
+        $data_direcionador_db=
+            [
+                'customer_id' => implode($customer_model->select('id')->where('name', $data['customer_id'])->first()),
+                'product_id' => implode($product_model->select('id')->where('title', $data['product_id'])->first()),
+                'status' => $data['status']
+            ];
+
+        $save = $order_model->insert($data_direcionador_db);
 
         if ($save != false) {
-            $data = $order_model->where('id', $save)->first();
-            echo json_encode(array("status" => true, 'data' => $data));
+            $data_direcionador_db = $order_model->where('id', $save)->first();
+            echo json_encode(array("status" => true, 'data' => $data_direcionador_db));
         } else {
-            echo json_encode(array("status" => false, 'data' => $data));
+            echo json_encode(array("status" => false, 'data' => $data_direcionador_db));
         }
     }
 
