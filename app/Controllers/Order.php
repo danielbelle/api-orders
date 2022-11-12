@@ -4,17 +4,31 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\OrderModel;
+use App\Models\CustomerModel;
+use App\Models\ProductModel;
 
 class Order extends Controller
 {
 
     public function index()
     {
-        $model = new OrderModel();
+        $order_model = new OrderModel();
+        $customer_model = new CustomerModel();
+        $product_model = new ProductModel();
 
-        $data['orders_detail'] = $model->orderBy('id', 'DESC')->findAll();
+        $data['orders_detail'] = $order_model->orderBy('id', 'DESC')->findAll();
+        $data2 = array();
+        foreach ($data['orders_detail'] as $key => $datas) {
 
-        return view('list_order', $data);
+            $data2['orders_detail'][$key] =
+                [
+                    'id' => $datas['id'],
+                    'customer_id' => implode($customer_model->select('name')->where('id', $datas['customer_id'])->first()),
+                    'product_id' => implode($product_model->select('title')->where('id', $datas['product_id'])->first()),
+                    'status' => $datas['status']
+                ];
+        }
+        return view('list_order', $data2);
     }
 
 
@@ -22,17 +36,17 @@ class Order extends Controller
     {
         helper(['form', 'url']);
 
-        $model = new OrderModel();
+        $order_model = new OrderModel();
 
         $data = [
             'customer_id' => $this->request->getVar('txtOrderCustomerId'),
             'product_id'  => $this->request->getVar('txtOrderProductId'),
             'status'  => $this->request->getVar('txtOrderStatus'),
         ];
-        $save = $model->insert($data);
+        $save = $order_model->insert($data);
 
         if ($save != false) {
-            $data = $model->where('id', $save)->first();
+            $data = $order_model->where('id', $save)->first();
             echo json_encode(array("status" => true, 'data' => $data));
         } else {
             echo json_encode(array("status" => false, 'data' => $data));
@@ -42,9 +56,9 @@ class Order extends Controller
     public function edit($id = null)
     {
 
-        $model = new OrderModel();
+        $order_model = new OrderModel();
 
-        $data = $model->where('id', $id)->first();
+        $data = $order_model->where('id', $id)->first();
 
         if ($data) {
             echo json_encode(array("status" => true, 'data' => $data));
@@ -58,7 +72,7 @@ class Order extends Controller
 
         helper(['form', 'url']);
 
-        $model = new OrderModel();
+        $order_model = new OrderModel();
 
         $id = $this->request->getVar('hdnOrderId');
 
@@ -68,9 +82,9 @@ class Order extends Controller
             'status'  => $this->request->getVar('txtOrderStatus'),
         ];
 
-        $update = $model->update($id, $data);
+        $update = $order_model->update($id, $data);
         if ($update != false) {
-            $data = $model->where('id', $id)->first();
+            $data = $order_model->where('id', $id)->first();
             echo json_encode(array("status" => true, 'data' => $data));
         } else {
             echo json_encode(array("status" => false, 'data' => $data));
@@ -79,8 +93,8 @@ class Order extends Controller
 
     public function delete($id = null)
     {
-        $model = new OrderModel();
-        $delete = $model->where('id', $id)->delete();
+        $order_model = new OrderModel();
+        $delete = $order_model->where('id', $id)->delete();
         if ($delete) {
             echo json_encode(array("status" => true));
         } else {

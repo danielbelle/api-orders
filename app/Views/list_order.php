@@ -50,7 +50,16 @@
                         <td><?php echo esc($row['id']); ?></td>
                         <td><?php echo esc($row['customer_id']); ?></td>
                         <td><?php echo esc($row['product_id']); ?></td>
-                        <td><?php echo esc($row['status']); ?></td>
+                        <td><?php
+                            if (esc($row['status']) == 3) {
+                                echo 'Cancelado';
+                            } elseif (esc($row['status']) == 2) {
+                                echo 'Pago';
+                            } else {
+                                echo 'Em Aberto';
+                            }
+
+                            ?></td>
                         <td>
                             <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-primary btnEdit">Editar</a>
                             <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-danger btnDelete">Deletar</a>
@@ -80,7 +89,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtOrderStatus">Status do Pedido</label>
-                                <input type="text" class="form-control" id="txtOrderStatus" placeholder="Nome do Produto" name="txtOrderStatus">
+                                <select class="form-select" id="txtOrderStatus" name="txtOrderStatus">
+                                    <option selected>Escolha o status</option>
+                                    <option value=1>Em Aberto</option>
+                                    <option value=2>Pago</option>
+                                    <option value=3>Cancelado</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -110,10 +124,13 @@
                                 <label for="txtOrderProductId">Produto Adquirido:</label>
                                 <input type="text" class="form-control" id="txtOrderProductId" placeholder="Nome do Produto" name="txtOrderProductId">
                             </div>
-                            <div class="form-group">
-                                <label for="txtOrderStatus">Status do Pedido</label>
-                                <input type="text" class="form-control" id="txtOrderStatus" placeholder="Nome do Produto" name="txtOrderStatus">
-                            </div>
+                            <label for="txtOrderStatus">Status do Pedido:</label>
+                            <select class="form-select" id="txtOrderStatus" name="txtOrderStatus">
+                                <option selected>Escolha o status</option>
+                                <option value=1>Em Aberto</option>
+                                <option value=2>Pago</option>
+                                <option value=3>Cancelado</option>
+                            </select>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
