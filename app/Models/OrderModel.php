@@ -15,7 +15,7 @@ class OrderModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        "costumer_id",
+        "customer_id",
         "product_id",
         "status"
     ];
