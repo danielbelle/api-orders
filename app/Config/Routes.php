@@ -36,7 +36,7 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-
+/*
 $routes->group("api", ["namespace" => "App\Controllers\Api"], function($routes){
 
 	$routes->post("register", "ApiController::userRegister");
@@ -60,8 +60,43 @@ $routes->group("api", ["namespace" => "App\Controllers\Api"], function($routes){
 	$routes->get("single-order/(:num)", "ApiController::singleOrderDetail/$1");
 	$routes->put("update-order/(:num)", "ApiController::updateOrder/$1");
 	$routes->delete("delete-order/(:num)", "ApiController::deleteOrder/$1");
+});*/
+
+// CRUD Routes Student
+
+$routes->group("student", ["namespace" => "App\Controllers"], function($routes){
+	$routes->get('', 'Student::index');
+	$routes->post('store', 'Student::store');
+	$routes->get('edit/(:num)', 'Student::edit/$1');
+	$routes->get('/delete/(:num)', 'Student::delete/$1');
+	$routes->post('update', 'Student::update');
 });
 
+// CRUD Routes Customer
+$routes->group("customer", ["namespace" => "App\Controllers"], function($routes){
+	$routes->get('', 'Customer::index');
+	$routes->post('store', 'Customer::store');
+	$routes->get('edit/(:num)', 'Customer::edit/$1');
+	$routes->get('delete/(:num)', 'Customer::delete/$1');
+	$routes->post('update', 'Customer::update');
+});
+
+// CRUD Routes Product
+$routes->group("product", ["namespace" => "App\Controllers"], function($routes){
+	$routes->get('', 'Product::index');
+	$routes->post('store', 'Product::store');
+	$routes->get('edit/(:num)', 'Product::edit/$1');
+	$routes->get('delete/(:num)', 'Product::delete/$1');
+	$routes->post('update', 'Product::update');
+});
+// CRUD Routes Order
+$routes->group("order", ["namespace" => "App\Controllers"], function($routes){
+	$routes->get('order', 'Order::index');
+	$routes->post('store', 'Order::store');
+	$routes->get('edit/(:num)', 'Order::edit/$1');
+	$routes->get('delete/(:num)', 'Order::delete/$1');
+	$routes->post('update', 'Order::update');
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing
