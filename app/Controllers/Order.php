@@ -30,12 +30,25 @@ class Order extends Controller
         }
 
         if (empty($data['orders_detail'])) {
-            $data_direcionador_db['orders_detail'] =['empty'];
+            $data_direcionador_db['orders_detail'] = ['empty'];
         }
 
         return view('list_order', $data_direcionador_db);
     }
 
+
+    public function add()
+    {
+
+        $customer_model = new CustomerModel();
+        $product_model = new ProductModel();
+
+        $customer_data = array_column($customer_model->select('name')->orderBy('id', 'DESC')->findAll(), 'name');
+        $product_data = array_column($product_model->select('title')->orderBy('id', 'DESC')->findAll(), 'title');
+
+
+        echo json_encode(array("status" => true, 'customer_data' => $customer_data, 'product_data' => $product_data));
+    }
 
     public function store()
     {
@@ -62,9 +75,9 @@ class Order extends Controller
 
         if ($save != false) {
             $data_direcionador_db = $order_model->where('id', $save)->first();
-            echo json_encode(array("status" => true, 'data' => $data_direcionador_db));
+            echo json_encode(array("status" => true, 'data' => $data, 'data_direcionador_db' => $data_direcionador_db));
         } else {
-            echo json_encode(array("status" => false, 'data' => $data_direcionador_db));
+            echo json_encode(array("status" => false, 'data' => $data, 'data_direcionador_db' => $data_direcionador_db));
         }
     }
 
@@ -89,18 +102,6 @@ class Order extends Controller
         }
     }
 
-    public function add()
-    {
-
-        $customer_model = new CustomerModel();
-        $product_model = new ProductModel();
-
-        $customer_data = array_column($customer_model->select('name')->orderBy('id', 'DESC')->findAll(), 'name');
-        $product_data = array_column($product_model->select('title')->orderBy('id', 'DESC')->findAll(), 'title');
-
-
-        echo json_encode(array("status" => true, 'customer_data' => $customer_data, 'product_data' => $product_data));
-    }
 
     public function update()
     {
@@ -119,8 +120,14 @@ class Order extends Controller
             'status'  => $this->request->getVar('txtOrderStatus'),
         ];
 
+        $data_to_save = [
+            'customer_id' => implode($customer_model->select('id')->where('name', $data['customer_id'])->first()),
+            'product_id'  => implode($product_model->select('id')->where('title', $data['product_id'])->first()),
+            'status'  => $this->request->getVar('txtOrderStatus'),
+        ];
+        
 
-        $update = $order_model->update($id, $data);
+        $update = $order_model->update($id, $data_to_save);
         if ($update != false) {
 
             $data = $order_model->where('id', $id)->first();

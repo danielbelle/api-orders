@@ -175,12 +175,22 @@
                         type: "POST",
                         dataType: 'json',
                         success: function(res) {
-                            var order = '<tr id="' + res.data.id + '">';
-                            order += '<td>' + res.data.id + '</td>';
+
+                            let status;
+                            if (res.data.status == 3) {
+                                status = 'Cancelado';
+                            } else if (res.data.status == 2) {
+                                status = 'Pago';
+                            } else {
+                                status = 'Em Aberto';
+                            }
+
+                            var order = '<tr id="' + res.data_direcionador_db.id + '">';
+                            order += '<td>' + res.data_direcionador_db.id + '</td>';
                             order += '<td>' + res.data.customer_id + '</td>';
                             order += '<td>' + res.data.product_id + '</td>';
-                            order += '<td>' + res.data.status + '</td>';
-                            order += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
+                            order += '<td>' + status + '</td>';
+                            order += '<td><a data-id="' + res.data_direcionador_db.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data_direcionador_db.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
                             order += '</tr>';
                             $('#orderTable tbody').prepend(order);
                             $('#addOrder')[0].reset();
@@ -200,14 +210,14 @@
                         for (var i = 0; i < (res.customer_data).length; i++) {
 
                             $('#addOrder #txtOrderCustomerId').append($('<option>', {
-                                value: i,
+                                value: res.customer_data[i],
                                 text: res.customer_data[i]
                             }));
                         }
 
                         for (var i = 0; i < (res.product_data).length; i++) {
                             $('#addOrder #txtOrderProductId').append($('<option>', {
-                                value: i,
+                                value: res.product_data[i],
                                 text: res.product_data[i]
                             }));
 
@@ -237,25 +247,25 @@
                             if (res.customer_data[i] == res.customer_data_specific.name) {
                                 name_selected = true;
 
-                                $('#updateOrder #txtOrderCustomerId').append($('<option>', {
-                                    value: i,
-                                    text: res.customer_data[i],
-                                    selected: name_selected
-                                }));
-
-                                name_selected = false;
-
                             }
+                            $('#updateOrder #txtOrderCustomerId').append($('<option>', {
+                                value: res.customer_data[i],
+                                text: res.customer_data[i],
+                                selected: name_selected
+                            }));
+
+                            name_selected = false;
+
                         }
 
-                        for (var i = 0; i < (res.customer_data).length; i++) {
+                        for (var i = 0; i < (res.product_data).length; i++) {
                             let title_selected = false;
 
                             if (res.product_data[i] == res.product_data_specific.title) {
                                 title_selected = true;
                             }
                             $('#updateOrder #txtOrderProductId').append($('<option>', {
-                                value: i,
+                                value: res.product_data[i],
                                 text: res.product_data[i],
                                 selected: title_selected
                             }));
@@ -284,10 +294,20 @@
                         type: "POST",
                         dataType: 'json',
                         success: function(res) {
+
+                            let status;
+                            if (res.data.status == 3) {
+                                status = 'Cancelado';
+                            } else if (res.data.status == 2) {
+                                status = 'Pago';
+                            } else {
+                                status = 'Em Aberto';
+                            }
+
                             var order = '<td>' + res.data.id + '</td>';
                             order += '<td>' + res.customer_data_specific.name + '</td>';
                             order += '<td>' + res.product_data_specific.title + '</td>';
-                            order += '<td>' + res.data.status + '</td>';
+                            order += '<td>' + status + '</td>';
                             order += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
                             $('#orderTable tbody #' + res.data.id).html(order);
                             $('#updateOrder')[0].reset();
