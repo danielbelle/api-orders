@@ -26,7 +26,7 @@
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" onClick="return redirect('<?php echo base_url(); ?>/product');">
                     Lista de Produtos
                 </button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                <button type="button" class="btn btn-primary btnAdd" data-bs-toggle="modal" data-bs-target="#addModal">
                     Novo Pedido
                 </button>
             </div>
@@ -44,28 +44,30 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($orders_detail as $row) {
+                if ($orders_detail[0] != 'empty') :
+                    foreach ($orders_detail as $row) :
                 ?>
-                    <tr id="<?php echo esc($row['id']); ?>">
-                        <td><?php echo esc($row['id']); ?></td>
-                        <td><?php echo esc($row['customer_id']); ?></td>
-                        <td><?php echo esc($row['product_id']); ?></td>
-                        <td><?php
-                            if (esc($row['status']) == 3) {
-                                echo 'Cancelado';
-                            } elseif (esc($row['status']) == 2) {
-                                echo 'Pago';
-                            } else {
-                                echo 'Em Aberto';
-                            }
-                            ?></td>
-                        <td>
-                            <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-primary btnEdit">Editar</a>
-                            <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-danger btnDelete">Deletar</a>
-                        </td>
-                    </tr>
+                        <tr id="<?php echo esc($row['id']); ?>">
+                            <td><?php echo esc($row['id']); ?></td>
+                            <td><?php echo esc($row['customer_id']); ?></td>
+                            <td><?php echo esc($row['product_id']); ?></td>
+                            <td><?php
+                                if (esc($row['status']) == 3) {
+                                    echo 'Cancelado';
+                                } elseif (esc($row['status']) == 2) {
+                                    echo 'Pago';
+                                } else {
+                                    echo 'Em Aberto';
+                                }
+                                ?></td>
+                            <td>
+                                <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-primary btnEdit">Editar</a>
+                                <a data-id="<?php echo esc($row['id']); ?>" class="btn btn-danger btnDelete">Deletar</a>
+                            </td>
+                        </tr>
                 <?php
-                }
+                    endforeach;
+                endif;
                 ?>
             </tbody>
         </table>
@@ -82,33 +84,14 @@
                                 <label for="txtOrderCustomerId">Nome do Cliente:</label>
                                 <select class="form-select" id="txtOrderCustomerId" name="txtOrderCustomerId">
                                     <option selected></option>
-                                    <?php
-                                    $row_verif = array();
-                                    foreach ($orders_detail as $row) :
-                                        if (!in_array($row['customer_id'], $row_verif)) {
-                                            array_push($row_verif, $row['customer_id']);
-                                    ?>
-                                            <option id='<?php echo esc($row['id']); ?>'><?php echo esc($row['customer_id']); ?></option>
-                                    <?php
-                                        }
-                                    endforeach; ?>
+
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="txtOrderProductId">Produto Adquirido:</label>
                                 <select class="form-select" id="txtOrderProductId" name="txtOrderProductId">
                                     <option selected></option>
-                                    <?php
-                                    $row_verif = array();
-                                    foreach ($orders_detail as $row) :
-                                        if (!in_array($row['product_id'], $row_verif)) {
-                                            array_push($row_verif, $row['product_id']);
-                                    ?>
-                                            <option id='<?php echo esc($row['id']); ?>'><?php echo esc($row['product_id']); ?></option>
-                                    <?php
 
-                                        }
-                                    endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -139,22 +122,28 @@
                     </div>
                     <form id="updateOrder" name="updateOrder" action="<?php echo site_url('order/update'); ?>" method="post">
                         <div class="modal-body">
-                            <input type="hidden" name="hdnOrderId" id="hdnOrderId" />
                             <div class="form-group">
+                                <input type="hidden" name="hdnOrderId" id="hdnOrderId" />
                                 <label for="txtOrderCustomerId">Nome do Cliente:</label>
-                                <input type="text" class="form-control" id="txtOrderCustomerId" placeholder="Adicione nome do Cliente" name="txtOrderCustomerId">
+                                <select class="form-select" id="txtOrderCustomerId" name="txtOrderCustomerId">
+                                    <option></option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="txtOrderProductId">Produto Adquirido:</label>
-                                <input type="text" class="form-control" id="txtOrderProductId" placeholder="Nome do Produto" name="txtOrderProductId">
+                                <select class="form-select" id="txtOrderProductId" name="txtOrderProductId">
+                                    <option></option>
+                                </select>
                             </div>
-                            <label for="txtOrderStatus">Status do Pedido:</label>
-                            <select class="form-select" id="txtOrderStatus" name="txtOrderStatus">
-                                <option selected></option>
-                                <option value=1>Em Aberto</option>
-                                <option value=2>Pago</option>
-                                <option value=3>Cancelado</option>
-                            </select>
+                            <div class="form-group">
+                                <label for="txtOrderStatus">Status do Pedido</label>
+                                <select class="form-select" id="txtOrderStatus" name="txtOrderStatus">
+                                    <option></option>
+                                    <option value=1>Em Aberto</option>
+                                    <option value=2>Pago</option>
+                                    <option value=3>Cancelado</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -202,6 +191,31 @@
                 }
             });
 
+            $('body').on('click', '.btnAdd', function() {
+                $.ajax({
+                    url: 'order/add/',
+                    type: "GET",
+                    dataType: 'json',
+                    success: function(res) {
+                        for (var i = 0; i < (res.customer_data).length; i++) {
+
+                            $('#addOrder #txtOrderCustomerId').append($('<option>', {
+                                value: i,
+                                text: res.customer_data[i]
+                            }));
+                        }
+
+                        for (var i = 0; i < (res.product_data).length; i++) {
+                            $('#addOrder #txtOrderProductId').append($('<option>', {
+                                value: i,
+                                text: res.product_data[i]
+                            }));
+
+                        }
+                    }
+                });
+            });
+
             $('body').on('click', '.btnEdit', function() {
                 var order_id = $(this).attr('data-id');
                 $.ajax({
@@ -209,11 +223,47 @@
                     type: "GET",
                     dataType: 'json',
                     success: function(res) {
+
+
                         $('#updateModal').modal('show');
                         $('#updateOrder #hdnOrderId').val(res.data.id);
-                        $('#updateOrder #txtOrderCustomerId').val(res.data.customer_id);
-                        $('#updateOrder #txtOrderProductId').val(res.data.product_id);
+                        $('#updateOrder #txtOrderCustomerId').val(res.customer_data_specific.name);
+                        $('#updateOrder #txtOrderProductId').val(res.product_data_specific.title);
                         $('#updateOrder #txtOrderStatus').val(res.data.status);
+
+                        for (var i = 0; i < (res.customer_data).length; i++) {
+                            let name_selected = false;
+
+                            if (res.customer_data[i] == res.customer_data_specific.name) {
+                                name_selected = true;
+
+                                $('#updateOrder #txtOrderCustomerId').append($('<option>', {
+                                    value: i,
+                                    text: res.customer_data[i],
+                                    selected: name_selected
+                                }));
+
+                                name_selected = false;
+
+                            }
+                        }
+
+                        for (var i = 0; i < (res.customer_data).length; i++) {
+                            let title_selected = false;
+
+                            if (res.product_data[i] == res.product_data_specific.title) {
+                                title_selected = true;
+                            }
+                            $('#updateOrder #txtOrderProductId').append($('<option>', {
+                                value: i,
+                                text: res.product_data[i],
+                                selected: title_selected
+                            }));
+
+                            title_selected = false;
+
+                        }
+
                     },
                     error: function(data) {}
                 });
@@ -235,8 +285,8 @@
                         dataType: 'json',
                         success: function(res) {
                             var order = '<td>' + res.data.id + '</td>';
-                            order += '<td>' + res.data.customer_id + '</td>';
-                            order += '<td>' + res.data.product_id + '</td>';
+                            order += '<td>' + res.customer_data_specific.name + '</td>';
+                            order += '<td>' + res.product_data_specific.title + '</td>';
                             order += '<td>' + res.data.status + '</td>';
                             order += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
                             $('#orderTable tbody #' + res.data.id).html(order);

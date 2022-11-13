@@ -93,6 +93,7 @@ $routes->group("product", ["namespace" => "App\Controllers"], function($routes){
 $routes->group("order", ["namespace" => "App\Controllers"], function($routes){
 	$routes->get('', 'Order::index');
 	$routes->post('store', 'Order::store');
+	$routes->get('add', 'Order::add');
 	$routes->get('edit/(:num)', 'Order::edit/$1');
 	$routes->get('delete/(:num)', 'Order::delete/$1');
 	$routes->post('update', 'Order::update');
