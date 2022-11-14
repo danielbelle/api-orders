@@ -36,7 +36,7 @@
 8) no terminal rode: php spark db:seed ProductSeeder
 9) no terminal rode: php spark db:seed CustomerSeeder
 10) no terminal rode: php spark db:seed OrderSeeder
-11) no terminal rode: php artisan serve
+11) no terminal rode: php spark serve
 12) abra o link: <a href="http://localhost:8080/" >http://localhost:8080/</a>
 
 ## Funcionalidade:
