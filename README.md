@@ -3,8 +3,6 @@
 > Status: Desenvolvido ✅
 ### Projeto desenvolvido para atender demanda de um processo seletivo, onde era para desenvolver uma API REST de pedidos de compra com o framkework PHP CodeIgniter e MySQL. Nesta API, foi adicionado 3 endpoins de CRUD para Clientes, Produtos e Pedidos de compra.
 
-
-
 ## Tecnologias utilizadas:
 
 <table>
@@ -13,7 +11,7 @@
     <td>CodeIgniter</td>
     <td>Composer</td>
     <td>MySql</td>
-    <td>JWT Auth</td>
+    <td>JWT</td>
     <td>Bootstrap</td>
     <td>jQuery</td>
   </tr>
@@ -28,46 +26,36 @@
   </tr>
 </table>
 
-## Some fields in main Model is:
+## Funcionalidade:
+- CRUD produtos;
+- CRUD clientes;
+- CRUD pedidos de compra com status;
+- Validação de campos na criação e edição de dados;
+- Tabela com campod e pesquisa;
+- Atualização de dados em tempo real;
+- Autenticação com JWT;
 
+## Sobre o desafio:
+Foi muito legal conhecer e aprender um novo framework e tão poderoso com o CodeIgniter. Aproveitei para comprar um curso e me especializar um pouco mais, então saio deste desafio com muito mais conhecimento e uma ferramenta a mais na minha caixa de utilitários.
 
-  
-Also that, has a User with this fields:
+## Sugestões para melhorar este projeto:
 
-+ name
-+ email
-+ cpf
-+ birth
-+ active
+- Criar uma tela de cadastro, onde restringe a tela pedidos para administradores das lojas.
 
-## In addition to CRUD, I implement other features such as:
+## Para rodar a aplicação:
 
-* See the more recently movement created, using Cookie.
-* Entire verification system to validate forms with personalized messages.
-* Message of success when create a movement, using Session Flash.
-* Profile User editable.
+1) clone este repositório
+2) no terminal rode: composer install
+3) VERIFICAR
+4) crie um database MySQL para sua aplicação
+5) renomeie o arquivo "env" para ".env"
+6) configure os dados do seu database no arquivo ".env"
+7) no terminal rode: php spark migrate
+8) no terminal rode: php spark db:seed ProductSeeder
+9) no terminal rode: php spark db:seed CustomerSeeder
+10) no terminal rode: php spark db:seed OrderSeeder
+11) no terminal rode: php artisan serve
+12) abra o link: <a href="http://localhost:8080/" >http://localhost:8080/</a>
 
-## This features are in developing:
-
-- Search for movements by name and/or dificulted category.
-- Email verification.
-
-## How to run the application:
-
-1) run shell: composer install
-2) run shell: php artisan key:generate
-3) create new Schema MySql
-4) create file .env (can copy from .env.example)
-5) configure your database variables in .env
-6) run shell: php artisan migrate
-7) run shell: php artisan serve
-
-## How to use mail service:
-
-1) create free account in mailtrap
-2) into of mailtrap site, go to My Inbox
-3) go to SMT settigns
-4) choice Laravel option in Integrations
-5) copy and past in your .env
 
 <center><img src="https://user-images.githubusercontent.com/38620899/106393900-5aa85880-63d8-11eb-88f1-07ac30adad80.gif"></center>
