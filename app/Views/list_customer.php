@@ -67,7 +67,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <form id="addCustomer" name="addCustomer" action="<?php echo site_url('customer/store'); ?>" method="post">
-                    <?php csrf_field(); ?>
+                        <?php csrf_field(); ?>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="txtCustomerName">Nome:</label>
@@ -94,7 +94,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <form id="updateCustomer" name="updateCustomer" action="<?php echo site_url('customer/update'); ?>" method="post">
-                    <?php csrf_field(); ?>
+                        <?php csrf_field(); ?>
                         <div class="modal-body">
                             <input type="hidden" name="hdnCustomerId" id="hdnCustomerId" />
                             <div class="form-group">
@@ -144,6 +144,8 @@
                             $('#customerTable tbody').prepend(customer);
                             $('#addCustomer')[0].reset();
                             $('#addModal').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
                         },
                         error: function(data) {}
                     });
