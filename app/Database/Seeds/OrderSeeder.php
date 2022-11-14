@@ -9,7 +9,7 @@ class OrderSeeder extends Seeder
 {
     public function run()
     {
-        for ($i = 0; $i < 30; $i++){
+        for ($i = 0; $i < 10; $i++){
             $this->db->table("orders")->insert($this->generateFakeOrder());
         }
     }    
@@ -19,9 +19,9 @@ class OrderSeeder extends Seeder
         $faker = Factory::create();
 
         return[
-            "customer_id" => $faker->numberBetween(1, 30),
-            "product_id" => $faker->numberBetween(1, 30),
-            "status" => $faker->randomElement($array = array ('Em Aberto','Pago','Cancelado')),
+            "customer_id" => $faker->numberBetween(1, 29),
+            "product_id" => $faker->numberBetween(1, 29),
+            "status" => $faker->numberBetween(1,3),
         ];
 
     }

@@ -34,9 +34,9 @@ class OrderMigration extends Migration
 
 		$this->forge->addPrimaryKey("id");
 
-        $this->forge->addForeignKey('product_id','products','id', 'CASCADE');
+        $this->forge->addForeignKey('product_id','products','id', '', 'CASCADE');
 
-		$this->forge->addForeignKey('customer_id', 'customers', 'id', 'CASCADE');
+		$this->forge->addForeignKey('customer_id', 'customers', 'id', '', 'CASCADE');
 
 		$this->forge->createTable("orders");
 		

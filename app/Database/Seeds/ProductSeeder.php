@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
         $faker = Factory::create();
 
         return[
-            "title" => $faker->words(1, false),
+            "title" => $faker->numerify('Produto ##'),
             "price" => $faker->randomNumber(2, false)
         ];
 
