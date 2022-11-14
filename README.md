@@ -1,18 +1,36 @@
 [header](https://user-images.githubusercontent.com/38620899/106385660-2de04b00-63b0-11eb-9747-843cdc397c76.PNG)
 
-> Status: Desenvolvido ⚠️
+> Status: Desenvolvido ✅
 ### Projeto desenvolvido para atender demanda de um processo seletivo, onde era para desenvolver uma API REST de pedidos de compra com o framkework PHP CodeIgniter e MySQL. Nesta API, foi adicionado 3 endpoins de CRUD para Clientes, Produtos e Pedidos de compra.
+
+
+
+## Tecnologias utilizadas:
+
+<table>
+  <tr>
+    <td>PHP</td>
+    <td>CodeIgniter</td>
+    <td>Composer</td>
+    <td>MySql</td>
+    <td>JWT Auth</td>
+    <td>Bootstrap</td>
+    <td>jQuery</td>
+  </tr>
+  <tr>
+    <td>7.4</td>
+    <td>4.2</td>
+    <td>2.0</td>
+    <td>10.4</td>
+    <td>6.3</td>
+    <td>5.0</td>
+    <td>3.6</td>
+  </tr>
+</table>
 
 ## Some fields in main Model is:
 
-+ name 
-+ description
-+ repetation num
-+ sequency num
-+ dificult category
-+ i know
-+ user_id
-+ image
+
   
 Also that, has a User with this fields:
 
@@ -33,25 +51,6 @@ Also that, has a User with this fields:
 
 - Search for movements by name and/or dificulted category.
 - Email verification.
-
-## Technologies Used:
-
-<table>
-  <tr>
-    <td>PHP</td>
-    <td>CodeIgniter</td>
-    <td>Composer</td>
-    <td>MySql</td>
-    <td>JWT</td>
-  </tr>
-  <tr>
-    <td>7.4</td>
-    <td>4.2</td>
-    <td>2.0</td>
-    <td>10.4</td>
-    <td>6.3</td>
-  </tr>
-</table>
 
 ## How to run the application:
 
