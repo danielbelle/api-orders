@@ -1,4 +1,4 @@
-[header](https://user-images.githubusercontent.com/38620899/106385660-2de04b00-63b0-11eb-9747-843cdc397c76.PNG)
+[header](https://github.com/danielbelle/api-orders/blob/main/public/readme/lista-de-produtos.png)
 
 > Status: Desenvolvido ✅
 ### Projeto desenvolvido para atender demanda de um processo seletivo, onde era para desenvolver uma API REST de pedidos de compra com o framkework PHP CodeIgniter e MySQL. Nesta API, foi adicionado 3 endpoins de CRUD para Clientes, Produtos e Pedidos de compra.
@@ -58,4 +58,4 @@ Foi muito legal conhecer e aprender um novo framework e tão poderoso com o Code
 12) abra o link: <a href="http://localhost:8080/" >http://localhost:8080/</a>
 
 
-<center><img src="https://user-images.githubusercontent.com/38620899/106393900-5aa85880-63d8-11eb-88f1-07ac30adad80.gif"></center>
+<center><img src="https://github.com/danielbelle/api-orders/blob/main/public/readme/video-crud.gif"></center>
