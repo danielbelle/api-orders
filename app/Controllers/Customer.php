@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\CustomerModel;
+use Exception;
 
 class Customer extends Controller
 {
@@ -24,27 +25,38 @@ class Customer extends Controller
 
         $model = new CustomerModel();
 
+        $response_http = (array) service('response');
+
         $data = [
             'name'  => $this->request->getVar('txtCustomerName'),
             'document'  => $this->request->getVar('txtCustomerDocument'),
         ];
 
-        $save = $model->insert($data);
-        
-        if ($save) {
-            $data = $model->where('id', $save)->first();
+        $response_http = (array) service('response');
+
+        $exception = '';
+
+        try {
+            $save = $model->insert($data);
+
+            if ($save) {
+                $data = $model->where('id', $save)->first();
+            }
+        } catch (Exception $e) {
+            $exception = $e;
         }
 
-        $status = 200;
-        $mensagem = 'foi';
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];
+
         echo json_encode(array('response' => $response));
     }
 
@@ -52,15 +64,22 @@ class Customer extends Controller
     {
         $model = new CustomerModel();
 
-        $data = $model->where('id', $id)->first();
+        $response_http = (array) service('response');
+        $exception = '';
 
-        $status = 200;
-        $mensagem = 'foi';
+        try {
+            $data = $model->where('id', $id)->first();
+        } catch (Exception $e) {
+            $exception = $e;
+        }
+
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];
@@ -76,23 +95,31 @@ class Customer extends Controller
 
         $id = $this->request->getVar('hdnCustomerId');
 
+        $response_http = (array) service('response');
+
         $data = [
             'name'  => $this->request->getVar('txtCustomerName'),
             'document'  => $this->request->getVar('txtCustomerDocument'),
         ];
 
-        $update = $model->update($id, $data);
-        if ($update) {
-            $data = $model->where('id', $id)->first();
+        $exception = '';
+
+        try {
+            $update = $model->update($id, $data);
+            if ($update) {
+                $data = $model->where('id', $id)->first();
+            }
+        } catch (Exception $e) {
+            $exception = $e;
         }
 
-        $status = 200;
-        $mensagem = 'foi';
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];
@@ -103,17 +130,24 @@ class Customer extends Controller
     public function delete($id = null)
     {
         $model = new CustomerModel();
+        $exception = '';
         
-        $delete = $model->where('id', $id)->delete();
+        try {
+            $delete = $model->where('id', $id)->delete();
+        } catch (Exception $e) {
+            $exception = $e;
+        }
+
+        $response_http = (array) service('response');
 
         $data = '';
-        $status = 200;
-        $mensagem = 'foi';
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\ProductModel;
+use Exception;
 
 class Product extends Controller
 {
@@ -24,24 +25,34 @@ class Product extends Controller
 
         $model = new ProductModel();
 
+        $response_http = (array) service('response');
+
         $data = [
             'title' => $this->request->getVar('txtProductTitle'),
             'price'  => $this->request->getVar('txtProductPrice'),
         ];
 
-        $save = $model->insert($data);
+        $response_http = (array) service('response');
 
-        if ($save) {
-            $data = $model->where('id', $save)->first();
+        $exception = '';
+
+        try {
+            $save = $model->insert($data);
+
+            if ($save) {
+                $data = $model->where('id', $save)->first();
+            }
+        } catch (Exception $e) {
+            $exception = $e;
         }
 
-        $status = 200;
-        $mensagem = 'foi';
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];
@@ -53,15 +64,22 @@ class Product extends Controller
     {
         $model = new ProductModel();
 
-        $data = $model->where('id', $id)->first();
+        $response_http = (array) service('response');
+        $exception = '';
 
-        $status = 200;
-        $mensagem = 'foi';
+        try {
+            $data = $model->where('id', $id)->first();
+        } catch (Exception $e) {
+            $exception = $e;
+        }
+
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];
@@ -77,23 +95,31 @@ class Product extends Controller
 
         $id = $this->request->getVar('hdnProductId');
 
+        $response_http = (array) service('response');
+
         $data = [
             'title' => $this->request->getVar('txtProductTitle'),
             'price'  => $this->request->getVar('txtProductPrice'),
         ];
 
-        $update = $model->update($id, $data);
-        if ($update) {
-            $data = $model->where('id', $id)->first();
+        $exception = '';
+
+        try {
+            $update = $model->update($id, $data);
+            if ($update) {
+                $data = $model->where('id', $id)->first();
+            }
+        } catch (Exception $e) {
+            $exception = $e;
         }
 
-        $status = 200;
-        $mensagem = 'foi';
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];
@@ -104,16 +130,24 @@ class Product extends Controller
     public function delete($id = null)
     {
         $model = new ProductModel();
-        $delete = $model->where('id', $id)->delete();
+        $exception = '';
+
+        try {
+            $delete = $model->where('id', $id)->delete();
+        } catch (Exception $e) {
+            $exception = $e;
+        }
+
+        $response_http = (array) service('response');
 
         $data = '';
-        $status = 200;
-        $mensagem = 'foi';
+        $status = $response_http["\0*\0statusCode"];
+        $mensagem = $response_http["\0*\0reason"];
 
         $response = [
             "cabecalho" => [
                 "status" => $status,
-                "mensagem" => $mensagem,
+                "mensagem" => [$mensagem, $exception],
             ],
             "retorno" => [$data]
         ];

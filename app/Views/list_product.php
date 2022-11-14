@@ -67,6 +67,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <form id="addProduct" name="addProduct" action="<?php echo site_url('product/store'); ?>" method="post">
+                    <?php csrf_field(); ?>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="txtProductTitle">Nome:</label>
@@ -93,6 +94,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <form id="updateProduct" name="updateProduct" action="<?php echo site_url('product/update'); ?>" method="post">
+                    <?php csrf_field(); ?>
                         <div class="modal-body">
                             <input type="hidden" name="hdnProductId" id="hdnProductId" />
                             <div class="form-group">
