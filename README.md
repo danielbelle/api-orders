@@ -1,63 +1,72 @@
-# CodeIgniter 4 Application Starter
+[header](https://user-images.githubusercontent.com/38620899/106385660-2de04b00-63b0-11eb-9747-843cdc397c76.PNG)
 
-## What is CodeIgniter?
+> Status: Developing ⚠️
+### It is a web application planned by me, where I perform the CRUD of Calisthenics Movements.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+## Some fields in main Model is:
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
++ name 
++ description
++ repetation num
++ sequency num
++ dificult category
++ i know
++ user_id
++ image
+  
+Also that, has a User with this fields:
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
++ name
++ email
++ cpf
++ birth
++ active
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+## In addition to CRUD, I implement other features such as:
 
-## Installation & updates
+* See the more recently movement created, using Cookie.
+* Entire verification system to validate forms with personalized messages.
+* Message of success when create a movement, using Session Flash.
+* Profile User editable.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## This features are in developing:
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- Search for movements by name and/or dificulted category.
+- Email verification.
 
-## Setup
+## Technologies Used:
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+<table>
+  <tr>
+    <td>PHP</td>
+    <td>Laravel</td>
+    <td>Composer</td>
+    <td>MySql</td>
+  </tr>
+  <tr>
+    <td>6.*</td>
+    <td>7.4</td>
+    <td>2.0</td>
+    <td>8.0</td>
+  </tr>
+</table>
 
-## Important Change with index.php
+## How to run the application:
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+1) run shell: composer install
+2) run shell: php artisan key:generate
+3) create new Schema MySql
+4) create file .env (can copy from .env.example)
+5) configure your database variables in .env
+6) run shell: php artisan migrate
+7) run shell: php artisan serve
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## How to use mail service:
 
-**Please** read the user guide for a better explanation of how CI4 works!
+1) create free account in mailtrap
+2) into of mailtrap site, go to My Inbox
+3) go to SMT settigns
+4) choice Laravel option in Integrations
+5) copy and past in your .env
 
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 7.4 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+<center><img src="https://user-images.githubusercontent.com/38620899/106393900-5aa85880-63d8-11eb-88f1-07ac30adad80.gif"></center>
