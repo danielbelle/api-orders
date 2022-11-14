@@ -7,7 +7,12 @@
     <meta name="description" content="The small framework with powerful features">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <!-- STYLES -->
 
     <style {csp-style-nonce}>
@@ -234,11 +239,14 @@
 <body>
 
     <section>
-        <a href="<?php echo base_url('login'); ?>">
-            <h3>
-                Gerar Token JWT "Login"
-            </h3>
-        </a>
+        <h3>
+            Você está logado:
+        </h3>
+        <button class="btn btn-danger" onClick="return redirect('<?php echo base_url(); ?>/order');">
+
+            Acessar API
+
+        </button>
     </section>
 
 
@@ -251,6 +259,11 @@
                 var menuItem = menuItems[i];
                 menuItem.classList.toggle("hidden");
             }
+        }
+
+        function redirect(url) {
+            window.location.href = url;
+            return false;
         }
     </script>
 

@@ -176,21 +176,23 @@
                         dataType: 'json',
                         success: function(res) {
 
+                            let recived_data = res.response.retorno;
+
                             let status;
-                            if (res.data.status == 3) {
+                            if (recived_data[0].data_request.status == 3) {
                                 status = 'Cancelado';
-                            } else if (res.data.status == 2) {
+                            } else if (recived_data[0].data_request.status == 2) {
                                 status = 'Pago';
                             } else {
                                 status = 'Em Aberto';
                             }
 
-                            var order = '<tr id="' + res.data_direcionador_db.id + '">';
-                            order += '<td>' + res.data_direcionador_db.id + '</td>';
-                            order += '<td>' + res.data.customer_id + '</td>';
-                            order += '<td>' + res.data.product_id + '</td>';
+                            var order = '<tr id="' + recived_data[0].data_direcionador_db.id + '">';
+                            order += '<td>' + recived_data[0].data_direcionador_db.id + '</td>';
+                            order += '<td>' + recived_data[0].data_request.customer_id + '</td>';
+                            order += '<td>' + recived_data[0].data_request.product_id + '</td>';
                             order += '<td>' + status + '</td>';
-                            order += '<td><a data-id="' + res.data_direcionador_db.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data_direcionador_db.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
+                            order += '<td><a data-id="' + recived_data[0].data_direcionador_db.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + recived_data[0].data_direcionador_db.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
                             order += '</tr>';
                             $('#orderTable tbody').prepend(order);
                             $('#addOrder')[0].reset();
@@ -207,18 +209,19 @@
                     type: "GET",
                     dataType: 'json',
                     success: function(res) {
-                        for (var i = 0; i < (res.customer_data).length; i++) {
+                        let recived_data = res.response.retorno;
+                        for (var i = 0; i < (recived_data[0].customer_data).length; i++) {
 
                             $('#addOrder #txtOrderCustomerId').append($('<option>', {
-                                value: res.customer_data[i],
-                                text: res.customer_data[i]
+                                value: recived_data[0].customer_data[i],
+                                text: recived_data[0].customer_data[i]
                             }));
                         }
 
-                        for (var i = 0; i < (res.product_data).length; i++) {
+                        for (var i = 0; i < (recived_data[0].product_data).length; i++) {
                             $('#addOrder #txtOrderProductId').append($('<option>', {
-                                value: res.product_data[i],
-                                text: res.product_data[i]
+                                value: recived_data[0].product_data[i],
+                                text: recived_data[0].product_data[i]
                             }));
 
                         }
@@ -234,44 +237,43 @@
                     dataType: 'json',
                     success: function(res) {
 
-
+                        let recived_data = res.response.retorno;
                         $('#updateModal').modal('show');
-                        $('#updateOrder #hdnOrderId').val(res.data.id);
-                        $('#updateOrder #txtOrderCustomerId').val(res.customer_data_specific.name);
-                        $('#updateOrder #txtOrderProductId').val(res.product_data_specific.title);
-                        $('#updateOrder #txtOrderStatus').val(res.data.status);
+                        $('#updateOrder #hdnOrderId').val(recived_data[0].data_selected.id);
+                        $('#updateOrder #txtOrderCustomerId').val(recived_data[0].customer_data_specific.name);
+                        $('#updateOrder #txtOrderProductId').val(recived_data[0].product_data_specific.title);
+                        $('#updateOrder #txtOrderStatus').val(recived_data[0].data_selected.status);
 
-                        for (var i = 0; i < (res.customer_data).length; i++) {
+                        for (var i = 0; i < (recived_data[0].customer_data).length; i++) {
                             let name_selected = false;
 
-                            if (res.customer_data[i] == res.customer_data_specific.name) {
+                            if (recived_data[0].customer_data[i] == recived_data[0].customer_data_specific.name) {
                                 name_selected = true;
-
                             }
+
                             $('#updateOrder #txtOrderCustomerId').append($('<option>', {
-                                value: res.customer_data[i],
-                                text: res.customer_data[i],
+                                value: recived_data[0].customer_data[i],
+                                text: recived_data[0].customer_data[i],
                                 selected: name_selected
                             }));
 
                             name_selected = false;
-
                         }
 
-                        for (var i = 0; i < (res.product_data).length; i++) {
+                        for (var i = 0; i < (recived_data[0].product_data).length; i++) {
                             let title_selected = false;
 
-                            if (res.product_data[i] == res.product_data_specific.title) {
+                            if (recived_data[0].product_data[i] == recived_data[0].product_data_specific.title) {
                                 title_selected = true;
                             }
+
                             $('#updateOrder #txtOrderProductId').append($('<option>', {
-                                value: res.product_data[i],
-                                text: res.product_data[i],
+                                value: recived_data[0].product_data[i],
+                                text: recived_data[0].product_data[i],
                                 selected: title_selected
                             }));
 
                             title_selected = false;
-
                         }
 
                     },
@@ -295,21 +297,22 @@
                         dataType: 'json',
                         success: function(res) {
 
+                            let recived_data = res.response.retorno;
                             let status;
-                            if (res.data.status == 3) {
+                            if (recived_data[0].data_request.status == 3) {
                                 status = 'Cancelado';
-                            } else if (res.data.status == 2) {
+                            } else if (recived_data[0].data_request.status == 2) {
                                 status = 'Pago';
                             } else {
                                 status = 'Em Aberto';
                             }
 
-                            var order = '<td>' + res.data.id + '</td>';
-                            order += '<td>' + res.customer_data_specific.name + '</td>';
-                            order += '<td>' + res.product_data_specific.title + '</td>';
+                            var order = '<td>' + recived_data[0].data_request.id + '</td>';
+                            order += '<td>' + recived_data[0].customer_data_specific.name + '</td>';
+                            order += '<td>' + recived_data[0].product_data_specific.title + '</td>';
                             order += '<td>' + status + '</td>';
-                            order += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
-                            $('#orderTable tbody #' + res.data.id).html(order);
+                            order += '<td><a data-id="' + recived_data[0].data_request.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + recived_data[0].data_request.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
+                            $('#orderTable tbody #' + recived_data[0].data_request.id).html(order);
                             $('#updateOrder')[0].reset();
                             $('#updateModal').modal('hide');
                         },

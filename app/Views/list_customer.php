@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
 </head>
 
 <body>
@@ -31,7 +32,6 @@
                 </button>
             </div>
         </div>
-
         <table class="table table-bordered table-striped" id="customerTable">
             <thead>
                 <tr>
@@ -85,7 +85,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -113,9 +112,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
     <script>
         $(document).ready(function() {
             $('#customerTable').DataTable();
@@ -135,11 +132,12 @@
                         type: "POST",
                         dataType: 'json',
                         success: function(res) {
-                            var customer = '<tr id="' + res.data.id + '">';
-                            customer += '<td>' + res.data.id + '</td>';
-                            customer += '<td>' + res.data.name + '</td>';
-                            customer += '<td>' + res.data.document + '</td>';
-                            customer += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
+                            let recived_data = res.response.retorno;
+                            var customer = '<tr id="' + recived_data[0].id + '">';
+                            customer += '<td>' + recived_data[0].id + '</td>';
+                            customer += '<td>' + recived_data[0].name + '</td>';
+                            customer += '<td>' + recived_data[0].document + '</td>';
+                            customer += '<td><a data-id="' + recived_data[0].id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + recived_data[0].id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
                             customer += '</tr>';
                             $('#customerTable tbody').prepend(customer);
                             $('#addCustomer')[0].reset();
@@ -157,10 +155,11 @@
                     type: "GET",
                     dataType: 'json',
                     success: function(res) {
+                        let recived_data = res.response.retorno;
                         $('#updateModal').modal('show');
-                        $('#updateCustomer #hdnCustomerId').val(res.data.id);
-                        $('#updateCustomer #txtCustomerName').val(res.data.name);
-                        $('#updateCustomer #txtCustomerDocument').val(res.data.document);
+                        $('#updateCustomer #hdnCustomerId').val(recived_data[0].id);
+                        $('#updateCustomer #txtCustomerName').val(recived_data[0].name);
+                        $('#updateCustomer #txtCustomerDocument').val(recived_data[0].document);
                     },
                     error: function(data) {}
                 });
@@ -180,11 +179,12 @@
                         type: "POST",
                         dataType: 'json',
                         success: function(res) {
-                            var customer = '<td>' + res.data.id + '</td>';
-                            customer += '<td>' + res.data.name + '</td>';
-                            customer += '<td>' + res.data.document + '</td>';
-                            customer += '<td><a data-id="' + res.data.id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + res.data.id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
-                            $('#customerTable tbody #' + res.data.id).html(customer);
+                            let recived_data = res.response.retorno;
+                            var customer = '<td>' + recived_data[0].id + '</td>';
+                            customer += '<td>' + recived_data[0].name + '</td>';
+                            customer += '<td>' + recived_data[0].document + '</td>';
+                            customer += '<td><a data-id="' + recived_data[0].id + '" class="btn btn-primary btnEdit">Editar</a>  <a data-id="' + recived_data[0].id + '" class="btn btn-danger btnDelete">Deletar</a></td>';
+                            $('#customerTable tbody #' + recived_data[0].id).html(customer);
                             $('#updateCustomer')[0].reset();
                             $('#updateModal').modal('hide');
                         },
@@ -206,6 +206,7 @@
             return false;
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>
