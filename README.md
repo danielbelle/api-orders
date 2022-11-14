@@ -58,4 +58,4 @@ Foi muito legal conhecer e aprender um novo framework e tão poderoso com o Code
 12) abra o link: <a href="http://localhost:8080/" >http://localhost:8080/</a>
 
 
-<center><img src="https://github.com/danielbelle/api-orders/blob/main/public/readme/crud.gif" style="width:800px; height:1000px"></center>
+<center><img src="https://github.com/danielbelle/api-orders/blob/main/public/readme/crud.gif" style="width:1000px; height:500px"></center>
