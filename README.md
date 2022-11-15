@@ -45,7 +45,7 @@
 - CRUD clientes;
 - CRUD pedidos de compra com status;
 - Validação de campos na criação e edição de dados;
-- Tabela com campod e pesquisa;
+- Tabela com campo de pesquisa;
 - Atualização de dados em tempo real;
 
 ## Sobre o desafio:
