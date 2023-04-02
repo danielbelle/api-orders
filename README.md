@@ -25,7 +25,7 @@
 </table>
 
 ## Para rodar a aplicação:
-<spam> Vídeo com a instalação do projeto no youtube:</spam> https://youtu.be/CeQu0g-ifZU/
+<spam> Vídeo com a instalação do projeto no youtube:</spam> https://youtu.be/G1Brhqz-PqM/
 
 1) clone este repositório
 2) no terminal rode: git clone https://github.com/danielbelle/api-orders.git
